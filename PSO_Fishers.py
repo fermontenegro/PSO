@@ -7,17 +7,18 @@ def objective_function(x):
     y = x
     z = x
     v = x
-    return (-5 - 2 * math.exp(-x-2*y-2*z-2*v) - 2 * math.exp(-2*x-2*y-z-2*v) + 2 * math.exp(-z-2*v-2*x) - 2 * math.exp(-2*x-2*z-2*v-y) - 2 * math.exp(-z-2*v) + 2 * math.exp(-2*y-z-2*v) + 2 * math.exp(-2*v-y-2*x) - 2 * math.exp(-2*y-2*z-v) - 2 * math.exp(-2*x-2*y-2*z-v) + 2 * math.exp(-2*y-x-2*v) + 2 * math.exp(-2*z-v-2*x) + 2 * math.exp(-x) - 2 * math.exp(-x) - 2 * math.exp(-v-2*y) + 2 * math.exp(-2*y-2*x-v) - 2 * math.exp(-2*z-2*v-y) - 2 * math.exp(-v-2*x) - math.exp(-y-2*v) - 2 * math.exp(-2*z-2*v) - math.exp(-2*z-v) - 2 * math.exp(-2*y-2*z-2*v) + 3 * math.exp(-2*v) - math.exp(-2*v-2*y) + 2 * math.exp(-2*y-x-2*z) - math.exp(-z) + 2 * math.exp(-y) - 2 * math.exp(-2*y-x) - 2 * math.exp(-x-2*z) - 2 * math.exp(-2*z-2*x-y) - 2 * math.exp(-y-2*z) - 2 * math.exp(-2*x-y) + 3 * math.exp(-2*z) - 2 * math.exp(-2*y) - 2 * math.exp(-2*y-z) - math.exp(-2*v-x) + 2 * math.exp(-2*y-2*z) + 2 * math.exp(-2*x-2*y-z-2*v) - math.exp(-v) - math.exp(-z-2*x) - math.exp(-2*x-2*z) - math.exp(-2*x-2*y) + 3 * math.exp(-2*x-2*y-2*z) - 2 * math.exp(-2*x-2*y-2*z-2*v) - math.exp(-2*z-2*v-2*x) - math.exp(-2*y-2*x-2*v) - 2 * math.exp(-2*v-2*x)) / (-1 + math.exp(-2*x) - math.exp(-2*z-2*v) + math.exp(-2*y-2*z-2*v) + math.exp(-2*v) - math.exp(-2*v-2*y) + math.exp(-2*z) - math.exp(-2*y) - math.exp(-2*y-2*z) - math.exp(-2*x-2*z) + math.exp(-2*x-2*y) - math.exp(-2*x-2*y-2*z) - math.exp(-2*x-2*y-2*z-2*v) + math.exp(-2*z-2*v-2*x) - math.exp(-2*y-2*x-2*v) - math.exp(-2*v-2*x))
+    return (-5 - 2 * math.exp(-x-2*y-2*z-2*v) - 2 * math.exp(-2*x-2*y-z-2*v) + 2 * math.exp(-z-2*v-2*x) - 2 * math.exp(-2*x-2*z-2*v-y) - 2 * math.exp(-z-2*v) + 2 * math.exp(-2*y-z-2*v) + 2 * math.exp(-2*v-y-2*x) + 2 * math.exp(-2*y-2*z-v) - 2 * math.exp(-2*x-2*y-2*z-v) + 2 * math.exp(-2*y-x-2*v) + 2 * math.exp(-2*z-v-2*x) + 3 * math.exp(-x) + 2 * math.exp(-x) - 2 * math.exp(-v-2*y) + 2 * math.exp(-2*y-2*x-v) + 2 * math.exp(-2*z-2*v-y) - 2 * math.exp(-v-2*x) - math.exp(-y-2*v) - math.exp(-2*z-2*v) - 2 * math.exp(-2*z-v) - math.exp(-2*y-2*z-2*v) + 3 * math.exp(-2*v) - math.exp(-2*v-2*y) + 2 * math.exp(-2*y-x-2*z) + 2 * math.exp(-z) + 2 * math.exp(1) - y - 2 * math.exp(-2*y-x) - 2 * math.exp(-x-2*z) + 2 * math.exp(-2*z-2*x-y) - 2 * math.exp(-y-2*z) - 2 * math.exp(-2*x-y) + 3 * math.exp(-2*z) + 3 * math.exp(-2*y) - 2 * math.exp(-2*y-z) - 2 * math.exp(-2*v-x) - math.exp(-2*y-2*z) + 2 * math.exp(-2*x-2*y-z)+ 2 * math.exp(x-2*z-2*v) - 2 * math.exp(-v) - math.exp(-z-2*x) - math.exp(-2*x-2*z) - math.exp(-2*x-2*y) +  math.exp(-2*x-2*y-2*z) - 3 * math.exp(-2*x-2*y-2*z-2*v) - math.exp(-2*z-2*v-2*x) - math.exp(-2*y-2*x-2*v) - math.exp(-2*v-2*x)) / (-1 + math.exp(-2*x) - math.exp(-2*z-2*v) + math.exp(-2*y-2*z-2*v) + math.exp(-2*v) - math.exp(-2*v-2*y) + math.exp(-2*z) + math.exp(-2*y) - math.exp(-2*y-2*z) - math.exp(-2*x-2*z) + math.exp(-2*x-2*y) + math.exp(-2*x-2*y-2*z) - math.exp(-2*x-2*y-2*z-2*v) + math.exp(-2*z-2*v-2*x) + math.exp(-2*y-2*x-2*v) - math.exp(-2*v-2*x))
 
 class Particle:
     def __init__(self, dim, values):
         self.position = np.array([np.random.choice(values) for _ in range(dim)])
-        self.velocity = np.zeros(dim)
-        self.best_position = self.position.copy()
-        self.best_fitness = float('inf')
+        self.velocity = np.zeros(dim) # Inicializa la velocidad de la partícula como un vector de ceros de la misma dimensión que la posición.
+        self.best_position = self.position.copy() # Inicializa la mejor posición de la partícula como su posición actual
+        self.best_fitness = float('inf') # Inicializa la mejor aptitud de la partícula como infinito positivo. 
+                                         # Esta es una estrategia común para asegurarse de que cualquier valor de aptitud real sea menor y, por lo tanto, se actualizará en la primera iteración.
 
     def update_best(self, function):
-        fitness = function(self.position)
+        fitness = function(self.position) # Calcula la aptitud de la partícula actual utilizando la función de aptitud dada como argumento.
         if fitness < self.best_fitness:
             self.best_fitness = fitness
             self.best_position = self.position.copy()
@@ -55,14 +56,14 @@ class PSO:
 
 # Ejemplo de uso
 values = [0.0, 1.0, 2.0]  # Valores posibles para x
-pso = PSO(objective_function, 1, 20, values, 100)
+pso = PSO(objective_function, 1, 20, values, 1000)
 best_min_position, best_min_fitness, elapsed_time = pso.run()
 print("Mejor posición mínima encontrada:", best_min_position)
-print("Mejor valor de aptitud mínima encontrado:", best_min_fitness)
+print("Valor de función mínima encontrado:", best_min_fitness) # posición en la cual se obtiene el valor mínimo de la función.
 print("Tiempo de ejecución:", elapsed_time, "segundos")
-
-pso = PSO(lambda x: -objective_function(x), 1, 20, values, 100)
+print("\n")
+pso = PSO(lambda x: -objective_function(x), 1, 20, values, 1000)
 best_max_position, best_max_fitness, elapsed_time = pso.run()
-print("Mejor posición máxima encontrada:", best_max_position)
-print("Mejor valor de aptitud máxima encontrado:", -best_max_fitness)
+print("Mejor posición máxima encontrada:", best_max_position) # posición en la cual se obtiene el valor máximo de la función.
+print("Valor de función máxima encontrado:", -best_max_fitness)
 print("Tiempo de ejecución:", elapsed_time, "segundos")
