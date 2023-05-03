@@ -55,7 +55,7 @@ class PSO:
         return self.global_best_position, self.global_best_fitness, elapsed_time
 
 
-values = [0.0, 1.0, 2.0]  # Valores posibles para x
+values = [1.0]  # Valores posibles para x
 pso = PSO(lambda x: -objective_function(x), 1, 20, values, 1000)
 best_max_position, best_max_fitness, elapsed_time = pso.run()
 print("Mejor posición máxima encontrada:", best_max_position) # posición en la cual se obtiene el valor máximo de la función.

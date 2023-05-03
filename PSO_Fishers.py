@@ -55,7 +55,7 @@ class PSO:
         return self.global_best_position, self.global_best_fitness, elapsed_time
 
 # Ejemplo de uso
-values = [0.0, 1.0, 2.0]  # Valores posibles para x
+values = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]  # Valores posibles para x
 pso = PSO(objective_function, 1, 20, values, 1000)
 best_min_position, best_min_fitness, elapsed_time = pso.run()
 print("Mejor posición mínima encontrada:", best_min_position)
