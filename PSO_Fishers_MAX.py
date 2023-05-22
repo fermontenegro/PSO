@@ -11,7 +11,7 @@ def objective_function(x):
 
 class Particle:
     def __init__(self, dim, values):
-        self.position = np.array([np.random.choice(values) for _ in range(dim)]) # se escoje un valor al azar de la lista.
+        self.position = np.full(dim, values[0]) #
         self.velocity = np.zeros(dim) # Inicializa la velocidad de la partícula como un vector de ceros de la misma dimensión que la posición.
         self.best_position = self.position.copy() # Inicializa la mejor posición de la partícula como su posición actual
         self.best_fitness = float('-inf') # Inicializa la mejor aptitud de la partícula como infinito positivo. 
@@ -28,7 +28,7 @@ class PSO:
         self.function = function
         self.dim = dim
         self.swarm = [Particle(dim, values) for _ in range(size)]
-        self.global_best_position = np.array([np.random.choice(values) for _ in range(dim)])
+        self.global_best_position = np.full(dim, values[0])
         self.global_best_fitness = float('inf')
         self.iterations = iterations
 
@@ -43,8 +43,14 @@ class PSO:
                 w = 0.729  # Inertial weight
                 c1 = 1.49445  # Cognitive weight
                 c2 = 1.49445  # Social weight
-                r1 = np.random.rand(self.dim)
-                r2 = np.random.rand(self.dim)
+                if self.dim > 1:
+                    r1 = 1
+                    r2 = 1
+                    print("msg")
+                else:
+                    r1 = 1
+                    r2 = 1
+                    print("msg")
                 particle.velocity = (w * particle.velocity) + (c1 * r1 * (particle.best_position - particle.position)) + (c2 * r2 * (self.global_best_position - particle.position))
                 particle.position += particle.velocity
                 particle.position = np.array([np.clip(val, min(values), max(values)) for val in particle.position])
@@ -55,7 +61,7 @@ class PSO:
         return self.global_best_position, self.global_best_fitness, elapsed_time
 
 
-values = [1.0]  # Valores posibles para x
+values = [0.1]  # Valores posibles para x
 pso = PSO(lambda x: -objective_function(x), 1, 20, values, 1000)
 best_max_position, best_max_fitness, elapsed_time = pso.run()
 print("Mejor posición máxima encontrada:", best_max_position) # posición en la cual se obtiene el valor máximo de la función.
