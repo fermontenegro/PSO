@@ -46,11 +46,9 @@ class PSO:
                 if self.dim > 1:
                     r1 = 1
                     r2 = 1
-                    print("msg")
                 else:
                     r1 = 1
                     r2 = 1
-                    print("msg")
                 particle.velocity = (w * particle.velocity) + (c1 * r1 * (particle.best_position - particle.position)) + (c2 * r2 * (self.global_best_position - particle.position))
                 particle.position += particle.velocity
                 particle.position = np.array([np.clip(val, min(values), max(values)) for val in particle.position])
