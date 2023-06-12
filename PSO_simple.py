@@ -9,7 +9,7 @@ def objective_function(x):
 
 class Particle:
     def __init__(self, dim, values):
-        self.position = np.full(dim, values[0]) #
+        self.position = np.full(dim, values) #
         self.velocity = np.zeros(dim) # Inicializa la velocidad de la partícula como un vector de ceros de la misma dimensión que la posición.
         self.best_position = self.position.copy() # Inicializa la mejor posición de la partícula como su posición actual
         self.best_fitness = float('-inf') # Inicializa la mejor aptitud de la partícula como infinito positivo. 
@@ -26,12 +26,12 @@ class PSO:
         self.function = function
         self.dim = dim
         self.swarm = [Particle(dim, values) for _ in range(size)]
-        self.global_best_position = np.full(dim, values[0])
+        self.global_best_position = values
         self.global_best_fitness = float('inf')
         self.iterations = iterations
 
     def run(self):
-        start_time = time.time()  # Guarda el tiempo de inicio
+        #start_time = time.time()  # Guarda el tiempo de inicio
         for i in range(self.iterations):
             for particle in self.swarm:
                 particle.update_best(self.function)
@@ -49,17 +49,28 @@ class PSO:
                     r2 = 1
                 particle.velocity = (w * particle.velocity) + (c1 * r1 * (particle.best_position - particle.position)) + (c2 * r2 * (self.global_best_position - particle.position))
                 particle.position += particle.velocity
-                particle.position = np.array([np.clip(val, min(values), max(values)) for val in particle.position])
+                particle.position = np.clip(particle.position, values, values)
+        return self.global_best_position, self.global_best_fitness
 
-        end_time = time.time()  # Guarda el tiempo de fin
-        elapsed_time = end_time - start_time  # Calcula el tiempo transcurrido
+start_time = time.time()  # Guarda el tiempo de inicio
+values = 0.1
+convergence_point = 0
 
-        return self.global_best_position, self.global_best_fitness, elapsed_time
+while True:
+    pso = PSO(lambda x: -objective_function(x), 1, 20, values, 1000)
+    best_max_position, best_max_fitness = pso.run()
+    print("Mejor posición máxima encontrada:", best_max_position)
+    print("Valor de función máxima encontrado:", -best_max_fitness)
 
+    if convergence_point < -best_max_fitness :
+        convergence_point = -best_max_fitness
 
-values = [1.0]  # Valores posibles para x
-pso = PSO(lambda x: -objective_function(x), 1, 20, values, 1000)
-best_max_position, best_max_fitness, elapsed_time = pso.run()
-print("Mejor posición máxima encontrada:", best_max_position) # posición en la cual se obtiene el valor máximo de la función.
-print("Valor de función máxima encontrado:", -best_max_fitness)
+    if values > 5:
+        break
+    else:
+        values += 0.1
+
+print("Punto de convergencia: ",convergence_point)
+end_time = time.time()  # Guarda el tiempo de fin
+elapsed_time = end_time - start_time  # Calcula el tiempo transcurrido
 print("Tiempo de ejecución:", elapsed_time, "segundos")
