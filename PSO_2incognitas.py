@@ -2,10 +2,9 @@ import numpy as np
 import math
 import time
 
-def objective_function(x):
-    y = x
-    z = x
-    return 2*(-2 + math.exp(-z) + math.exp(-x) + math.exp(-y) + math.exp(-2*y-x-2*z) + math.exp(-2*x) + math.exp(-2*y) + math.exp(-2*z) - math.exp(-2*x-2*y-2*z) - math.exp(-x -2*z) + math.exp(-2*x -2*y -z) - math.exp(-z -2*x) - math.exp(-y -2*z) -math.exp(-2*x -y) - math.exp(-2*y -z) + math.exp(-2*z -2*x -y) - math.exp(-2*y -x))/(-1 + math.exp(-2*z) + math.exp(-2*y)- math.exp(-2*y -2*z) + math.exp(-2*x) - math.exp(-2*x -2*z) - math.exp(-2*x -2*y) + math.exp(-2*x -2*y -2*z))
+def objective_function(x,y):
+    
+    return x**2 + y**2
 
 class Particle:
     def __init__(self, dim, values):
@@ -41,23 +40,19 @@ class PSO:
                 w = 0.729  # Inertial weight
                 c1 = 1.49445  # Cognitive weight
                 c2 = 1.49445  # Social weight
-                if self.dim > 1:
-                    r1 = 1
-                    r2 = 1
-                else:
-                    r1 = 1
-                    r2 = 1
+                r1 = 1
+                r2 = 1
                 particle.velocity = (w * particle.velocity) + (c1 * r1 * (particle.best_position - particle.position)) + (c2 * r2 * (self.global_best_position - particle.position))
                 particle.position += particle.velocity
                 particle.position = np.clip(particle.position, values, values)
         return self.global_best_position, self.global_best_fitness
 
 start_time = time.time()  # Guarda el tiempo de inicio
-values = 0.1
+values = np.array([0.5, 0.5])
 convergence_point = 0
 
 while True:
-    pso = PSO(lambda x: -objective_function(x), 1, 20, values, 1000)
+    pso = PSO(lambda x: -objective_function(x[0], x[1]), 2, 20, values, 1000)
     best_max_position, best_max_fitness = pso.run()
     print("Mejor posición máxima encontrada:", best_max_position)
     print("Valor de función máxima encontrado:", -best_max_fitness)
@@ -65,11 +60,13 @@ while True:
     if convergence_point < -best_max_fitness :
         convergence_point = -best_max_fitness
 
-    if values > 10:
+    if values[1] >= 1:
         break
     else:
-        values += 0.1
+        values[0] += 0.1
+        values[1] += 0.1
 
+print(values)
 print("Punto de convergencia: ",convergence_point)
 end_time = time.time()  # Guarda el tiempo de fin
 elapsed_time = end_time - start_time  # Calcula el tiempo transcurrido
