@@ -66,7 +66,7 @@ while True:
     if convergence_point < -best_max_fitness:
         convergence_point = -best_max_fitness
 
-    if values > 3:
+    if values > 10:
         break
     else:
         values += 0.1
