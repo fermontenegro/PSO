@@ -4,7 +4,7 @@ import time
 
 def objective_function(x):
     y = x
-    z = x
+    z = np.random.uniform(2, 3)  # Generar un valor aleatorio entre 2 y 3 para z en cada llamada
     v = x
     return (-5 - 2*math.exp(-x-2*y-2*z-2*v) - 2*math.exp(-2*x-2*y-z-2*v) +
     2*math.exp(-z-2*v-2*x) - 2*math.exp(-2*x-2*z-2*v-y) -
