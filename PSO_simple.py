@@ -81,7 +81,7 @@ class PSO:
         return self.global_best_position, self.global_best_fitness
 
 start_time = time.time()  # Guarda el tiempo de inicio
-values = 0.1
+values = 1.0
 convergence_point = 0
 
 while True:
@@ -93,7 +93,7 @@ while True:
     if convergence_point < -best_max_fitness :
         convergence_point = -best_max_fitness
 
-    if values > 10:
+    if values == 1.0:
         break
     else:
         values += 0.1
