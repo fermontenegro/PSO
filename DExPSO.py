@@ -4,9 +4,9 @@ import time
 
 class Particle:
     def __init__(self, dim, values):
-        self.position = np.random.uniform(values, values, dim)
-        self.velocity = np.zeros(dim)
-        self.best_position = self.position.copy()
+        self.position = np.random.uniform(values, values, dim) #  se inicializa con valores aleatorios en el rango [values, values] para cada dimensión.
+        self.velocity = np.zeros(dim) # se inicializa como un vector de ceros. 
+        self.best_position = self.position.copy() # se usa para realizar un seguimiento de la mejor posición que ha alcanzado la partícula hasta ahora.
         self.best_fitness = float('-inf')
 
     def update_best(self, function):
@@ -45,7 +45,8 @@ class DExPSO:
 
 def objective_function(x):
     y = x
-    z = np.random.uniform(2, 3)
+    #z = np.random.uniform(2, 3)
+    z = x
     v = x
     return (-5 - 2*math.exp(-x-2*y-2*z-2*v) - 2*math.exp(-2*x-2*y-z-2*v) +
     2*math.exp(-z-2*v-2*x) - 2*math.exp(-2*x-2*z-2*v-y) -
@@ -95,7 +96,7 @@ while True:
     if convergence_point < -best_max_fitness:
         convergence_point = -best_max_fitness
 
-    if values > 10:
+    if values > 2:
         break
     else:
         values += 0.1

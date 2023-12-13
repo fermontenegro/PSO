@@ -4,7 +4,8 @@ import time
 
 def objective_function(x):
     y = x
-    z = np.random.uniform(2, 3)  # Generar un valor aleatorio entre 2 y 3 para z en cada llamada
+    #z = np.random.uniform(2, 3)  # Generar un valor aleatorio entre 2 y 3 para z en cada llamada
+    z = x
     v = x
     return (-5 - 2*math.exp(-x-2*y-2*z-2*v) - 2*math.exp(-2*x-2*y-z-2*v) +
     2*math.exp(-z-2*v-2*x) - 2*math.exp(-2*x-2*z-2*v-y) -
@@ -77,11 +78,11 @@ class PSO:
                     r2 = 1
                 particle.velocity = (w * particle.velocity) + (c1 * r1 * (particle.best_position - particle.position)) + (c2 * r2 * (self.global_best_position - particle.position))
                 particle.position += particle.velocity
-                particle.position = np.clip(particle.position, values, values)
+                particle.position = np.clip(particle.position, values, values) #Asegura que la posición de la partícula no exceda ciertos límites definidos
         return self.global_best_position, self.global_best_fitness
 
 start_time = time.time()  # Guarda el tiempo de inicio
-values = 1.0
+values = 0.1
 convergence_point = 0
 
 while True:
@@ -93,7 +94,7 @@ while True:
     if convergence_point < -best_max_fitness :
         convergence_point = -best_max_fitness
 
-    if values == 1.0:
+    if values > 2:
         break
     else:
         values += 0.1
